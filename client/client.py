@@ -5,7 +5,7 @@ import logging
 import ssl
 import os
 
-server_address = ('172.16.16.101', 8885)
+server_address = ('localhost', 8885)
 
 def make_socket(destination_address='localhost', port=12000):
     try:
@@ -89,7 +89,7 @@ def upload_file(filename):
             f"POST /upload HTTP/1.1\r\n"
             f"Host: {server_address[0]}\r\n"
             f"User-Agent: PythonUploader/1.0\r\n"
-            f"Content-Disposition: attachment; filename=\"{filename}\"\r\n"
+            f"X-Filename: {filename}\r\n"  # <-- FIXED LINE
             f"Content-Length: {len(file_content)}\r\n"
             f"\r\n"
         ).encode() + file_content
